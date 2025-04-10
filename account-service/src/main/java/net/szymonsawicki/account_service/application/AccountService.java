@@ -21,7 +21,7 @@ public class AccountService {
     public void consumeMessagePartition(ConsumerRecord<String, String> record) {
         System.out.println(" CONSUMER PARTITION 1 ======================================");
         System.out.println("🔹 Received message: " + record.value());
-        System.out.println("📌 From partition: " + record.partition() + " | Offset: " + record.offset());
+        System.out.println("📌 From partition: " + record.partition() + " | Offset: " + record.offset() + " Key: " + record.key());
         System.out.println("======================================");
     }
 
@@ -29,7 +29,23 @@ public class AccountService {
     public void consumeMessagePartition2(ConsumerRecord<String, String> record) {
         System.out.println("CONSUMER PARTITION 2 ======================================");
         System.out.println("🔹 Received message: " + record.value());
-        System.out.println("📌 From partition: " + record.partition() + " | Offset: " + record.offset());
+        System.out.println("📌 From partition: " + record.partition() + " | Offset: " + record.offset() +" Key: " + record.key());
+        System.out.println("======================================");
+    }
+
+    @KafkaListener(topics = "test-topic-consumer-group",groupId = "consumer-group1")
+    public void consumeMessagePartitionGroup1(ConsumerRecord<String, String> record) {
+        System.out.println("CONSUMER GROUP 1 ======================================");
+        System.out.println("🔹 Received message: " + record.value());
+        System.out.println("📌 From partition: " + record.partition() + " | Offset: " + record.offset() +" Key: " + record.key());
+        System.out.println("======================================");
+    }
+
+    @KafkaListener(topics = "test-topic-partition-consumer-group", groupId = "consumer-group1")
+    public void consumeMessagePartitionGroup1_2(ConsumerRecord<String, String> record) {
+        System.out.println("CONSUMER GROUP 1 ======================================");
+        System.out.println("🔹 Received message: " + record.value());
+        System.out.println("📌 From partition: " + record.partition() + " | Offset: " + record.offset() +" Key: " + record.key());;
         System.out.println("======================================");
     }
 
